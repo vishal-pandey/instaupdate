@@ -6,7 +6,7 @@ from django.utils.html import format_html
 
 class PostDetailAdmin(admin.ModelAdmin):
 	model = PostDetail
-	list_display = ['id', 'post_detail', 'post_detail_title', 'show_post_detail_url']
+	list_display = ['id', 'post_detail_title', 'show_post_detail_url']
 	search_fields = ['id', 'post_detail', 'post_detail_title']
 
 	def show_post_detail_url(self, obj):
