@@ -4,5 +4,6 @@ from dashboard import views
 app_name = 'dashboard'
 # Be careful setting the name to just /login use userlogin instead!
 urlpatterns=[
-    url(r'^(?P<mid>[\w-]+)/$',views.index,name='index'),
+    url(r'^(?P<mid>[\w-]+)/$',views.post,name='post'),
+    url(r'',views.index,name='index'),
 ]
