@@ -10,7 +10,7 @@ class PostDetailAdmin(admin.ModelAdmin):
 	search_fields = ['id', 'post_detail', 'post_detail_title']
 
 	def show_post_detail_url(self, obj):
-		return format_html("<a href='/{url}' target='_blank'>post link</a>", url=obj.id, title=obj.post_detail_title)
+		return format_html("<a href='/{url}/' target='_blank'>post link</a>", url=obj.id, title=obj.post_detail_title)
 
 	show_post_detail_url.short_description = "Post Detail URL"
 
