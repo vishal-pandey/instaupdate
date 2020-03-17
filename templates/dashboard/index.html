@@ -33,11 +33,27 @@
 		padding: 20px;
 		box-shadow: 2px 2px 5px grey inset, -2px -2px 5px grey inset;
 		border-radius: 5px;
+		animation: mymove 700ms infinite;
+		animation-timing-function: ease-in-out;
+		animation-direction: alternate;
 	}
 	h1{
 		font-weight: 800;
 		font-size: 27px;
 		font-family: Arial;
 	}
+
+	/*@keyframes mymove {
+	  0% {
+	  	transform: rotate(180deg) scale(0.1, 0.1);
+	  }
+	  50% {
+	  	transform: rotate(-20deg) scale(1.5,1.5);
+	  }
+	  100% {
+	  	transform: rotate(360deg) scale(0.1, 0.1);
+	  }
+
+	}*/
 
 </style>

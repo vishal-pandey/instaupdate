@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'users',
     'dashboard',
     'other',
+    'oauth2_provider',
     'rest_framework',
 ]
 
@@ -148,3 +149,14 @@ MEDIA_DIR = os.path.join(BASE_DIR,'media')
 STATICFILES_DIRS = [STATIC_DIR,]
 MEDIA_ROOT = MEDIA_DIR
 MEDIA_URL = '/media/'
+
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'oauth2_provider.contrib.rest_framework.OAuth2Authentication',
+    ],
+    'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.IsAuthenticated',
+    ),
+}
+
