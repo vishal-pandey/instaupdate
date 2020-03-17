@@ -131,7 +131,7 @@ STATIC_URL = '/static/'
 AUTH_USER_MODEL = 'users.CustomUser'
 
 
-TINYMCE_JS_URL = 'http://127.0.0.1:8000/static/tiny_mce/tiny_mce_src.js'
+TINYMCE_JS_URL = '/static/tiny_mce/tiny_mce_src.js'
 TINYMCE_DEFAULT_CONFIG = {
     'plugins': "table,spellchecker,paste,searchreplace",
     'theme': "advanced",
