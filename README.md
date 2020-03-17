@@ -1,4 +1,4 @@
-# instaupdate
+# Insta Update
 
 Home : https://instaupdate.vishalpandey.co.in  
 Admin Login : https://instaupdate.vishalpandey.co.in/admin/  
