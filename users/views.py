@@ -14,10 +14,15 @@ from rest_framework.authtoken.models import Token
 from rest_framework.response import Response
 
 from rest_framework.views import APIView
+from django.views.decorators.csrf import csrf_exempt
+from rest_framework.decorators import api_view
 import json
+from rest_framework import status
+from django.http import HttpResponseRedirect, HttpResponse, JsonResponse
 
 class CustomAuthToken(ObtainAuthToken):
 
+    @csrf_exempt
     def post(self, request, *args, **kwargs):
         serializer = self.serializer_class(data=request.data,
                                            context={'request': request})
@@ -142,4 +147,47 @@ class UserPreferenceView(APIView):
 
         return Response(list(UserPreference.objects.filter(user_id=request.user).values('category_id')))
 
+@csrf_exempt
+def checkPhone(request):
+    res = {}
+    if request.method == 'POST':
+        try:
+            mobile = request.POST['mobile']
+            the_user = list(CustomUser.objects.filter(mobile=mobile).values('fname'))
+            if len(the_user) > 0:
+                user_f_name = the_user[0]['fname']
+                return JsonResponse({
+                                        'mobile': mobile,
+                                        'is_registered': True,
+                                        'name': user_f_name
+                                    })
+            else:
+                return JsonResponse({
+                                        'mobile': mobile,
+                                        'is_registered': False,
+                                    })
+        except Exception as e:
+            return JsonResponse({'error': 'paramter mobile is required.'})
+    return JsonResponse({'error': 'method not allowed'})
+
+
+
+
+
+
+# User Register
+# @api_view(['POST'])
+# def create_auth(request):
+#     serialized = CustomUserSerializer(data=request.data)
+#     if serialized.is_valid():
+#         print(serialized.data['email'])
+#         # # CustomUser.
+#         # CustomUser.objects.create_user(
+#         #     serialized.data['email'],
+#         #     serialized.data['password']
+#         # )
+#         # return Response(serialized.data, status=status.HTTP_201_CREATED)
+#     else:
+#         print("KJKJDLJSLJ")
+#         return Response(serialized._errors, status=status.HTTP_400_BAD_REQUEST)
 
