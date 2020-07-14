@@ -8,11 +8,14 @@ from rest_framework.response import Response
 
 import json
 from .models import PostDetail, Category, Post, PostCategory, PostCategoryType
+from users.models import UserBookmark
 
 from django.views.decorators.csrf import csrf_exempt
 from datetime import datetime
 import pytz
 from django.utils import timezone
+from rest_framework.decorators import api_view
+
 
 
 def post(request, mid):
@@ -41,7 +44,7 @@ def getCategories(request):
 	return JsonResponse(data, safe=False)
 
 
-@csrf_exempt
+@api_view(['GET', 'POST'])
 def postlist(request):
 
 	if request.method == 'POST':
@@ -68,6 +71,16 @@ def postlist(request):
 
 
 		data = list(Post.objects.filter(**q).order_by('-created_on').values())
+		bookmarked_posts = []
+		if request.user.is_authenticated:
+			for post in list(UserBookmark.objects.filter(user_id=request.user).values("post_id__id")):
+				bookmarked_posts.append(post['post_id__id'])
+
+			for d in data:
+				if d['id'] in bookmarked_posts:
+					d['is_bookmarked'] = True
+				else:
+					d['is_bookmarked'] = False
 		return JsonResponse(data, safe=False)
 
 	elif request.method == 'GET':
